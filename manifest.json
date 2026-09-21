@@ -1,0 +1,11 @@
+{
+  "name": "IELTS 2027 备考",
+  "short_name": "IELTS 2027",
+  "description": "个人 IELTS 备考管理 · 按排休生成任务",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0f1419",
+  "theme_color": "#1a2332",
+  "lang": "zh-CN",
+  "orientation": "portrait-primary"
+}
