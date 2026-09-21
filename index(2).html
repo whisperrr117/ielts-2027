@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#1a2332" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>IELTS 2027 · 备考</title>
+  <link rel="manifest" href="manifest.json" />
+  <style>
+    :root {
+      --bg: #0f1419;
+      --bg2: #1a2332;
+      --bg3: #243044;
+      --card: #1e2a3a;
+      --border: #2d3a4f;
+      --text: #e8eef6;
+      --muted: #8b9bb4;
+      --accent: #5b9fd4;
+      --accent2: #3d8a6e;
+      --warn: #c9a227;
+      --soft: #6b7c93;
+      --radius: 12px;
+      --safe-b: env(safe-area-inset-bottom, 0px);
+      --nav-h: 64px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      min-height: 100dvh;
+      padding-bottom: calc(var(--nav-h) + var(--safe-b) + 12px);
+    }
+    a { color: var(--accent); text-decoration: none; }
+    button, input, select, textarea {
+      font: inherit;
+      color: inherit;
+    }
+    .app { max-width: 520px; margin: 0 auto; padding: 12px 14px 24px; }
+
+    /* Header */
+    .top {
+      padding: 8px 0 16px;
+    }
+    .top-brand {
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .top-title {
+      font-size: 26px;
+      font-weight: 650;
+      letter-spacing: -0.02em;
+      margin-top: 2px;
+    }
+    .top-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 14px;
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .top-meta strong { color: var(--text); font-weight: 600; }
+    .phase-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 4px 12px;
+      font-size: 12px;
+      color: var(--accent);
+      margin-top: 10px;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      margin-bottom: 12px;
+    }
+    .card h2 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 10px;
+      letter-spacing: 0.02em;
+    }
+    .card h3 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      border: 1px solid var(--border);
+      background: var(--bg3);
+      color: var(--text);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn:active { transform: scale(0.98); }
+    .btn-primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #0a1220;
+      font-weight: 600;
+    }
+    .btn-soft {
+      background: transparent;
+      border-color: var(--border);
+      color: var(--muted);
+    }
+    .btn-success {
+      background: var(--accent2);
+      border-color: var(--accent2);
+      color: #fff;
+    }
+    .btn-block { width: 100%; }
+    .btn-sm { padding: 6px 10px; font-size: 12px; border-radius: 8px; }
+    .btn-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn-row .btn { flex: 1; min-width: 0; }
+
+    /* Mode toggle */
+    .mode-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .mode-btn {
+      padding: 14px 12px;
+      border-radius: 12px;
+      border: 1.5px solid var(--border);
+      background: var(--bg2);
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .mode-btn.active-work {
+      border-color: var(--accent);
+      background: rgba(91, 159, 212, 0.12);
+    }
+    .mode-btn.active-rest {
+      border-color: var(--accent2);
+      background: rgba(61, 138, 110, 0.15);
+    }
+    .mode-btn .label { font-size: 15px; font-weight: 600; }
+    .mode-btn .hint { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+    /* Tasks */
+    .task {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 8px;
+    }
+    .task.done {
+      opacity: 0.55;
+    }
+    .task-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .task-title { font-weight: 600; font-size: 15px; }
+    .task-meta { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .task-actions { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+    .tier-badge {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: var(--bg3);
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .tier-full { color: var(--accent); }
+    .tier-light { color: var(--warn); }
+    .tier-min { color: var(--soft); }
+
+    /* Scores */
+    .score-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+    .score-item {
+      text-align: center;
+      background: var(--bg2);
+      border-radius: 10px;
+      padding: 10px 4px;
+    }
+    .score-item .k { font-size: 11px; color: var(--muted); }
+    .score-item .v { font-size: 20px; font-weight: 650; margin-top: 2px; }
+
+    /* Stats row */
+    .stat-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .stat {
+      background: var(--bg2);
+      border-radius: 10px;
+      padding: 12px;
+    }
+    .stat .k { font-size: 12px; color: var(--muted); }
+    .stat .v { font-size: 18px; font-weight: 650; margin-top: 2px; }
+
+    /* Connection */
+    .conn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      background: var(--bg2);
+      border-radius: 10px;
+      font-size: 13px;
+    }
+    .conn-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--accent2);
+      flex-shrink: 0;
+    }
+    .conn-dot.warn { background: var(--warn); }
+    .conn-dot.alert { background: #c45c5c; }
+
+    /* Bottom nav */
+    .nav {
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      background: rgba(15, 20, 25, 0.94);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border);
+      padding: 6px 8px calc(6px + var(--safe-b));
+      z-index: 100;
+      display: flex;
+      justify-content: center;
+    }
+    .nav-inner {
+      display: flex;
+      max-width: 520px;
+      width: 100%;
+      justify-content: space-around;
+    }
+    .nav-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      padding: 6px 4px;
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 10px;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .nav-item.active { color: var(--accent); }
+    .nav-item .ico { font-size: 20px; line-height: 1; }
+
+    /* Pages */
+    .page { display: none; }
+    .page.active { display: block; animation: fade 0.2s ease; }
+    @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+
+    /* Forms */
+    .field { margin-bottom: 12px; }
+    .field label {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .field input, .field select, .field textarea {
+      width: 100%;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      outline: none;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      border-color: var(--accent);
+    }
+    .field textarea { min-height: 80px; resize: vertical; }
+
+    /* List items */
+    .list-item {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .list-item:last-child { border-bottom: none; }
+    .list-item .main { flex: 1; min-width: 0; }
+    .list-item .title { font-weight: 550; font-size: 14px; }
+    .list-item .sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .empty {
+      text-align: center;
+      color: var(--muted);
+      padding: 28px 12px;
+      font-size: 14px;
+    }
+
+    /* Calendar */
+    .cal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+      text-align: center;
+    }
+    .cal-dow {
+      font-size: 11px;
+      color: var(--muted);
+      padding: 4px 0;
+    }
+    .cal-day {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      font-size: 13px;
+      border: none;
+      background: transparent;
+      color: var(--text);
+      cursor: pointer;
+      position: relative;
+    }
+    .cal-day.other { color: var(--soft); opacity: 0.4; }
+    .cal-day.today { font-weight: 700; box-shadow: inset 0 0 0 1.5px var(--accent); }
+    .cal-day.rest {
+      background: rgba(61, 138, 110, 0.25);
+      color: #8fd4b8;
+    }
+    .cal-day.work-marked {
+      background: rgba(91, 159, 212, 0.15);
+    }
+    .cal-legend {
+      display: flex;
+      gap: 14px;
+      margin-top: 12px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .cal-legend span::before {
+      content: "";
+      display: inline-block;
+      width: 10px; height: 10px;
+      border-radius: 3px;
+      margin-right: 5px;
+      vertical-align: middle;
+    }
+    .leg-rest::before { background: rgba(61, 138, 110, 0.45); }
+    .leg-today::before { box-shadow: inset 0 0 0 1.5px var(--accent); background: transparent; }
+
+    /* Chart */
+    .chart-wrap {
+      position: relative;
+      height: 180px;
+      margin: 8px 0;
+    }
+    canvas.chart { width: 100%; height: 100%; }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 200;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 0;
+    }
+    .modal {
+      background: var(--bg2);
+      border-radius: 16px 16px 0 0;
+      width: 100%;
+      max-width: 520px;
+      max-height: 88dvh;
+      overflow-y: auto;
+      padding: 16px 16px calc(20px + var(--safe-b));
+      border: 1px solid var(--border);
+      border-bottom: none;
+    }
+    .modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .modal-head h3 { font-size: 17px; }
+    .modal-close {
+      background: none; border: none; color: var(--muted);
+      font-size: 22px; cursor: pointer; padding: 4px 8px;
+    }
+
+    /* Tags */
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag {
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      cursor: pointer;
+    }
+    .tag.active {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(91, 159, 212, 0.12);
+    }
+
+    /* Progress bar */
+    .bar {
+      height: 6px;
+      background: var(--bg3);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-top: 6px;
+    }
+    .bar > i {
+      display: block;
+      height: 100%;
+      background: var(--accent);
+      border-radius: 3px;
+      transition: width 0.3s;
+    }
+
+    /* Section header with action */
+    .sec-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .sec-head h2 { margin-bottom: 0; }
+
+    /* Speak topics */
+    .topic-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .topic-btn {
+      padding: 12px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      text-align: left;
+      cursor: pointer;
+      font-size: 13px;
+    }
+    .topic-btn:active { border-color: var(--accent); }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: calc(var(--nav-h) + 20px + var(--safe-b));
+      transform: translateX(-50%) translateY(20px);
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-size: 13px;
+      z-index: 300;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.25s;
+      white-space: nowrap;
+      max-width: 90vw;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .hint-text {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+    .delta-pos { color: #6ecb9a; }
+    .delta-neu { color: var(--muted); }
+
+    .page-title {
+      font-size: 20px;
+      font-weight: 650;
+      margin-bottom: 14px;
+    }
+
+    .split-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    @media (min-width: 600px) {
+      body { padding-bottom: 24px; }
+      .nav { display: none; }
+      .app { max-width: 720px; padding-top: 20px; }
+      .desktop-nav {
+        display: flex !important;
+        gap: 6px;
+        flex-wrap: wrap;
+        margin-bottom: 18px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--border);
+      }
+      .desktop-nav .btn { font-size: 13px; padding: 8px 12px; }
+      .desktop-nav .btn.active {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #0a1220;
+      }
+    }
+    .desktop-nav { display: none; }
+
+    /* Today plan */
+    .today-hero {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+    .today-hero .status-line {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .today-hero .goal-line {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 12px;
+      line-height: 1.45;
+    }
+    .energy-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+    .energy-btn {
+      padding: 8px 4px;
+      border-radius: 10px;
+      border: 1.5px solid var(--border);
+      background: var(--bg2);
+      font-size: 11px;
+      text-align: center;
+      cursor: pointer;
+      color: var(--muted);
+      line-height: 1.3;
+    }
+    .energy-btn.active {
+      border-color: var(--accent);
+      color: var(--text);
+      background: rgba(91,159,212,0.12);
+    }
+    .plan-total {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .plan-total strong { color: var(--text); }
+    .task {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .task-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .task-title {
+      font-weight: 600;
+      font-size: 15px;
+      flex: 1 1 auto;
+      min-width: 0;
+      word-break: break-word;
+      line-height: 1.35;
+    }
+    .task-mins {
+      flex: 0 0 auto;
+      font-size: 12px;
+      color: var(--muted);
+      background: var(--bg3);
+      padding: 4px 8px;
+      border-radius: 6px;
+      white-space: nowrap;
+      margin-top: 1px;
+    }
+    .task-steps {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.55;
+      padding-left: 18px;
+      margin: 0;
+    }
+    .task-steps li { margin-bottom: 3px; }
+    .task-done-std {
+      font-size: 12px;
+      color: var(--accent2);
+      line-height: 1.4;
+    }
+    .task.done { opacity: 0.6; }
+    .task.done .task-title { text-decoration: line-through; }
+    .task.active-now {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(91,159,212,0.25);
+      background: rgba(91,159,212,0.06);
+    }
+    .task-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 2px;
+    }
+    .task-actions .btn { flex: 1 1 auto; min-width: 100px; }
+    .focus-banner {
+      background: var(--bg2);
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 13px;
+      margin-bottom: 10px;
+      line-height: 1.45;
+    }
+    .focus-banner strong { color: var(--accent); }
+    .balance-grid {
+      display: grid;
+      gap: 8px;
+    }
+    .balance-row {
+      display: grid;
+      grid-template-columns: 72px 1fr 28px;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+    }
+    .balance-row .name { color: var(--muted); }
+    .balance-row .count { color: var(--muted); text-align: right; }
+    .balance-bar {
+      height: 8px;
+      background: var(--bg3);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .balance-bar > i {
+      display: block;
+      height: 100%;
+      background: var(--accent);
+      border-radius: 4px;
+      min-width: 0;
+    }
+    .balance-bar.low > i { background: var(--warn); }
+    .tomorrow-hint {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+    }
+    .secondary-block { margin-top: 4px; }
+    .collapse-toggle {
+      width: 100%;
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      font-size: 13px;
+      padding: 8px 0;
+      cursor: pointer;
+      text-align: left;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="app">
+    <nav class="desktop-nav" id="desktopNav"></nav>
+
+    <!-- HOME -->
+    <section class="page active" id="page-home">
+      <div class="top">
+        <div class="top-brand">IELTS 2027</div>
+        <div class="top-title">距离考试 <strong id="daysLeft">—</strong> 天</div>
+        <div class="top-meta">
+          <span>目标 <strong>Overall 6.5</strong></span>
+          <span>冲刺 <strong>7.0</strong></span>
+        </div>
+        <div class="phase-pill" id="phasePill">—</div>
+      </div>
+
+      <div class="today-hero" id="todayHero">
+        <div class="status-line" id="statusLine">今日：—</div>
+        <div class="goal-line" id="goalLine"></div>
+
+        <div class="energy-row" id="energyRow">
+          <button type="button" class="energy-btn" data-e="normal">🙂<br>正常</button>
+          <button type="button" class="energy-btn" data-e="tired">😴<br>有点累</button>
+          <button type="button" class="energy-btn" data-e="exhausted">🫠<br>很累</button>
+          <button type="button" class="energy-btn" data-e="off">🌙<br>休息</button>
+        </div>
+
+        <div class="focus-banner" id="focusBanner"></div>
+        <div class="plan-total" id="planTotal"></div>
+        <div id="todayTasks"></div>
+
+        <button type="button" class="btn btn-primary btn-block" id="btnStartToday" style="margin-top:12px">开始今日学习</button>
+        <div class="btn-row" style="margin-top:8px">
+          <button type="button" class="btn btn-soft btn-sm" id="btnAdjustPlan">调整今日计划</button>
+          <button type="button" class="btn btn-soft btn-sm" id="btnModeToggle">切换工作/休息日</button>
+        </div>
+        <p class="tomorrow-hint" id="tomorrowHint"></p>
+      </div>
+
+      <div class="card">
+        <h2>本周连接 · 四科平衡</h2>
+        <p class="hint-text" id="weekSummary" style="margin-bottom:10px">—</p>
+        <div class="balance-grid" id="balanceGrid"></div>
+      </div>
+
+      <div class="secondary-block" id="secondaryHome">
+        <button type="button" class="collapse-toggle" id="btnMoreHome">显示更多 · 成绩与进度 ▾</button>
+        <div id="moreHome" style="display:none">
+          <div class="card">
+            <h2>English Connection</h2>
+            <div class="conn" id="connectionBox">
+              <span class="conn-dot" id="connDot"></span>
+              <span id="connText">—</span>
+            </div>
+          </div>
+          <div class="card">
+            <h2>本月学习</h2>
+            <div class="stat-row">
+              <div class="stat">
+                <div class="k">累计时长</div>
+                <div class="v" id="monthHours">0 h</div>
+              </div>
+              <div class="stat">
+                <div class="k">完成任务</div>
+                <div class="v" id="monthTasks">0</div>
+              </div>
+            </div>
+            <div class="bar"><i id="monthBar" style="width:0%"></i></div>
+            <p class="hint-text" style="margin-top:6px" id="monthHint">目标约 20–30 小时 / 月</p>
+          </div>
+          <div class="card">
+            <div class="sec-head">
+              <h2>四项最新成绩</h2>
+              <button type="button" class="btn btn-sm btn-soft" data-go="scores">记录</button>
+            </div>
+            <div class="score-grid" id="scoreGrid">
+              <div class="score-item"><div class="k">L</div><div class="v">—</div></div>
+              <div class="score-item"><div class="k">R</div><div class="v">—</div></div>
+              <div class="score-item"><div class="k">W</div><div class="v">—</div></div>
+              <div class="score-item"><div class="k">S</div><div class="v">—</div></div>
+            </div>
+            <p class="hint-text" style="margin-top:10px" id="baselineDelta"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCHEDULE -->
+    <section class="page" id="page-schedule">
+      <div class="page-title">本月排休</div>
+      <div class="card">
+        <p class="hint-text" style="margin-bottom:12px">点击日期切换：工作日 ↔ 休息日。系统按此生成今日任务。</p>
+        <div class="cal-head">
+          <button type="button" class="btn btn-sm" id="calPrev">‹</button>
+          <strong id="calTitle">—</strong>
+          <button type="button" class="btn btn-sm" id="calNext">›</button>
+        </div>
+        <div class="cal-grid" id="calDows"></div>
+        <div class="cal-grid" id="calDays"></div>
+        <div class="cal-legend">
+          <span class="leg-rest">休息日</span>
+          <span class="leg-today">今天</span>
+        </div>
+      </div>
+      <div class="card">
+        <h2>快捷批量</h2>
+        <div class="field">
+          <label>休息日（逗号或换行分隔，如 9/22, 9/25）</label>
+          <textarea id="batchRestInput" placeholder="9/22&#10;9/25&#10;9/29"></textarea>
+        </div>
+        <button type="button" class="btn btn-primary btn-block" id="btnBatchRest">标记为休息日</button>
+      </div>
+    </section>
+
+    <!-- LOG -->
+    <section class="page" id="page-log">
+      <div class="page-title">学习记录</div>
+      <div class="card">
+        <button type="button" class="btn btn-primary btn-block" id="btnAddLog">+ 手动添加记录</button>
+      </div>
+      <div class="card">
+        <div class="sec-head">
+          <h2>全部记录</h2>
+          <select id="logFilter" style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:4px 8px;font-size:12px">
+            <option value="all">全部</option>
+            <option value="Listening">Listening</option>
+            <option value="Reading">Reading</option>
+            <option value="Speaking">Speaking</option>
+            <option value="Writing">Writing</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div id="logList"></div>
+      </div>
+    </section>
+
+    <!-- SCORES -->
+    <section class="page" id="page-scores">
+      <div class="page-title">成绩追踪</div>
+      <div class="card">
+        <div class="sec-head">
+          <h2>我的起点 · Baseline</h2>
+          <button type="button" class="btn btn-sm" id="btnEditBaseline">编辑</button>
+        </div>
+        <div id="baselineBox" class="hint-text">尚未记录第一次完整模考。</div>
+      </div>
+      <div class="card">
+        <div class="sec-head">
+          <h2>四项趋势</h2>
+          <button type="button" class="btn btn-sm btn-primary" id="btnAddMock">+ 模考</button>
+        </div>
+        <div class="chart-wrap"><canvas id="scoreChart" class="chart"></canvas></div>
+        <div class="tags" style="margin-top:8px" id="chartLegend">
+          <span class="tag active" data-s="L">Listening</span>
+          <span class="tag active" data-s="R">Reading</span>
+          <span class="tag active" data-s="W">Writing</span>
+          <span class="tag active" data-s="S">Speaking</span>
+        </div>
+      </div>
+      <div class="card">
+        <h2>模考记录</h2>
+        <div id="mockList"></div>
+      </div>
+      <div class="card">
+        <h2>动态建议</h2>
+        <p class="hint-text" id="scoreAdvice">完成几次模考后，这里会给出温和建议。</p>
+      </div>
+    </section>
+
+    <!-- BANK -->
+    <section class="page" id="page-bank">
+      <div class="page-title">表达 · 词汇 · 写作</div>
+      <div class="card">
+        <div class="tags" id="bankTabs">
+          <span class="tag active" data-tab="expr">表达库</span>
+          <span class="tag" data-tab="vocab">词汇</span>
+          <span class="tag" data-tab="writing">写作错误</span>
+          <span class="tag" data-tab="resources">资源</span>
+          <span class="tag" data-tab="speak">口语主题</span>
+          <span class="tag" data-tab="review">月度 Review</span>
+        </div>
+      </div>
+
+      <div id="bank-expr">
+        <div class="card">
+          <button type="button" class="btn btn-primary btn-block" id="btnAddExpr">+ 想说却不会说的</button>
+        </div>
+        <div class="card">
+          <div class="tags" id="exprCats" style="margin-bottom:10px"></div>
+          <div id="exprList"></div>
+        </div>
+      </div>
+
+      <div id="bank-vocab" style="display:none">
+        <div class="card">
+          <button type="button" class="btn btn-primary btn-block" id="btnAddVocab">+ 新词 / 表达</button>
+          <p class="hint-text" style="margin-top:8px">每天 10–20 个即可。重点是「能主动使用」。</p>
+        </div>
+        <div class="card"><div id="vocabList"></div></div>
+      </div>
+
+      <div id="bank-writing" style="display:none">
+        <div class="card">
+          <button type="button" class="btn btn-primary btn-block" id="btnAddWritingErr">+ 记录写作问题</button>
+          <p class="hint-text" style="margin-top:8px" id="writingStats"></p>
+        </div>
+        <div class="card"><div id="writingErrList"></div></div>
+        <div class="card">
+          <h2>本周 Writing</h2>
+          <div class="field">
+            <label>题目 / Task</label>
+            <textarea id="writingPrompt" placeholder="Task 2 题目…"></textarea>
+          </div>
+          <div class="field">
+            <label>我的草稿</label>
+            <textarea id="writingDraft" style="min-height:120px"></textarea>
+          </div>
+          <div class="field">
+            <label>反馈（老师 / ChatGPT）</label>
+            <textarea id="writingFeedback"></textarea>
+          </div>
+          <button type="button" class="btn btn-primary btn-block" id="btnSaveWriting">保存作文</button>
+        </div>
+        <div class="card"><h2>已存作文</h2><div id="writingList"></div></div>
+      </div>
+
+      <div id="bank-resources" style="display:none">
+        <div class="card">
+          <button type="button" class="btn btn-primary btn-block" id="btnAddRes">+ 添加资源</button>
+        </div>
+        <div class="card"><div id="resList"></div></div>
+      </div>
+
+      <div id="bank-speak" style="display:none">
+        <div class="card">
+          <h2>今日主题建议</h2>
+          <p class="hint-text" style="margin-bottom:12px">建议和 ChatGPT 练习：一句一句说，得到纠正后重新表达。</p>
+          <div class="topic-grid" id="topicGrid"></div>
+          <a class="btn btn-primary btn-block" style="margin-top:12px" href="https://chat.openai.com" target="_blank" rel="noopener">打开 ChatGPT 练习</a>
+        </div>
+      </div>
+
+      <div id="bank-review" style="display:none">
+        <div class="card">
+          <div class="sec-head">
+            <h2>月度 Review</h2>
+            <select id="reviewMonth" style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:4px 8px;font-size:12px"></select>
+          </div>
+          <div id="reviewBody" class="hint-text"></div>
+          <div class="field" style="margin-top:12px">
+            <label>本月总结（自己写）</label>
+            <textarea id="reviewNote"></textarea>
+          </div>
+          <button type="button" class="btn btn-primary btn-block" id="btnSaveReview">保存总结</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SETTINGS -->
+    <section class="page" id="page-settings">
+      <div class="page-title">设置</div>
+      <div class="card">
+        <h2>考试与目标</h2>
+        <div class="field">
+          <label>考试日期</label>
+          <input type="date" id="setExamDate" />
+        </div>
+        <div class="field">
+          <label>开始备考</label>
+          <input type="date" id="setStartDate" />
+        </div>
+        <div class="split-2">
+          <div class="field">
+            <label>目标 Overall</label>
+            <input type="number" id="setTarget" step="0.5" min="4" max="9" />
+          </div>
+          <div class="field">
+            <label>冲刺目标</label>
+            <input type="number" id="setStretch" step="0.5" min="4" max="9" />
+          </div>
+        </div>
+        <button type="button" class="btn btn-primary btn-block" id="btnSaveSettings">保存设置</button>
+      </div>
+      <div class="card">
+        <h2>阶段一览</h2>
+        <div id="phaseList" class="hint-text"></div>
+      </div>
+      <div class="card">
+        <h2>数据备份</h2>
+        <p class="hint-text" style="margin-bottom:12px">一键导出全部数据到手机/电脑；换设备或清缓存后可一键导入恢复。</p>
+        <button type="button" class="btn btn-primary btn-block" id="btnExportJson">一键导出全部数据（JSON）</button>
+        <button type="button" class="btn btn-block" style="margin-top:8px" id="btnExportCsv">仅导出学习记录（CSV）</button>
+        <div style="margin:16px 0 8px;border-top:1px solid var(--border)"></div>
+        <h3 style="font-size:14px;margin-bottom:8px">一键导入</h3>
+        <p class="hint-text" style="margin-bottom:8px">选择之前导出的 JSON 文件即可恢复。会覆盖当前全部数据。</p>
+        <button type="button" class="btn btn-success btn-block" id="btnPickImport">选择 JSON 文件并导入</button>
+        <input type="file" id="importFile" accept="application/json,.json" style="display:none" />
+        <div class="field" style="margin-top:14px">
+          <label>或粘贴 JSON 文本后导入</label>
+          <textarea id="importArea" placeholder="粘贴导出的 JSON…"></textarea>
+        </div>
+        <button type="button" class="btn btn-primary btn-block" id="btnImport">从文本框导入并覆盖</button>
+        <button type="button" class="btn btn-soft btn-block" style="margin-top:8px" id="btnReset">清空全部数据</button>
+      </div>
+      <div class="card">
+        <p class="hint-text">核心理念：不是每天做到完美，而是从 2026/9/22 一直走到 2027/7。允许累、允许 10 分钟、允许休息，然后继续。</p>
+      </div>
+    </section>
+  </div>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <button type="button" class="nav-item active" data-page="home"><span class="ico">⌂</span>首页</button>
+      <button type="button" class="nav-item" data-page="schedule"><span class="ico">▦</span>排休</button>
+      <button type="button" class="nav-item" data-page="log"><span class="ico">✎</span>记录</button>
+      <button type="button" class="nav-item" data-page="scores"><span class="ico">◈</span>成绩</button>
+      <button type="button" class="nav-item" data-page="bank"><span class="ico">◈</span>积累</button>
+      <button type="button" class="nav-item" data-page="settings"><span class="ico">⚙</span>设置</button>
+    </div>
+  </nav>
+
+  <div class="toast" id="toast"></div>
+  <div id="modalRoot"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
